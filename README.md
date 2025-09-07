@@ -116,7 +116,8 @@ kafka-streams-tutorial/
 │   └── OrderProcessingJoins.java      # 🛒 Joins and data enrichment
 ├── scripts/
 │   ├── setup-topics.sh               # 🔧 Create Kafka topics
-│   └── generate-sample-data.sh       # 📝 Generate test data
+│   ├── generate-sample-data.sh       # 📝 Generate test data
+│   └── cleanup-cluster.sh            # 🛑 Stop cluster and cleanup
 ├── pom.xml                           # 📦 Maven dependencies
 ├── docker-compose.yml               # 🐳 Kafka cluster (in parent dir)
 └── README.md                         # 📖 This file
@@ -201,8 +202,24 @@ docker exec kafka kafka-console-consumer \
 ```bash
 # Another instance is running - stop it first
 # Or clean state directory
-rm -rf /tmp/kafka-streams/
+./scripts/cleanup-cluster.sh
 ```
+
+## 🛑 Cleanup & Shutdown
+
+When you're done with the tutorial, clean up everything:
+
+```bash
+# Stop all applications and clean up the cluster
+./scripts/cleanup-cluster.sh
+```
+
+This script will:
+- Stop all running Kafka Streams applications
+- Delete all tutorial topics
+- Stop and remove Docker containers
+- Clean up local state directories
+- Remove Docker volumes
 
 ## 🤝 Contributing
 
